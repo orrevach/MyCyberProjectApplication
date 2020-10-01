@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUp"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:padding="20dp">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:srcCompat="@drawable/logocyber1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-40dp"
+        android:fontFamily="@font/bungee"
+        android:text="Welcome"
+        android:textColor="#F85979"
+        android:textSize="40sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-30dp"
+        android:fontFamily="@font/boogaloo"
+        android:text="SignUp to join our community"
+        android:textColor="#F85979"
+        android:textSize="30sp" />
+
+
+
+
+
+
+     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         app:counterEnabled="true"
+         app:counterMaxLength="15"
+         android:focusable="true"
+         android:focusableInTouchMode="true"
+
+         >
+
+         <com.google.android.material.textfield.TextInputEditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+
+             android:ems="10"
+             android:hint="username"
+             android:inputType="text"
+             android:textSize="22sp" />
+        />
+         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="8"
+            app:passwordToggleEnabled="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="password"
+
+                android:ems="10"
+                android:textSize="22sp"
+                android:inputType="textPassword"
+                />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirmpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:counterEnabled="true"
+            app:counterMaxLength="8"
+            app:passwordToggleEnabled="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="confirm password"
+                android:ems="10"
+                android:textSize="22sp"
+                android:inputType="textPassword"
+                />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="emergency phone number"
+                android:ems="10"
+                android:textSize="22sp"
+                android:inputType="text"
+                />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    <Button
+        android:layout_marginTop="30dp"
+        style="@android:style/Widget.DeviceDefault.Button.Inset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000"
+        android:text="Register"
+        android:textColor="#F85979"
+        android:textSize="22sp">
+
+    </Button>
+
+    <Button
+        android:layout_width="371dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFF"
+        android:paddingLeft="@dimen/material_emphasis_medium"
+        android:text="allready have an account? LogIn"
+        android:textColor="#000"
+        android:textSize="13dp">
+
+    </Button>
+
+</LinearLayout>
+
+
+
+
+
+
