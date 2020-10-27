@@ -9,6 +9,17 @@
     android:background="#fff"
     android:padding="20dp">
 
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -38,29 +49,31 @@
 
 
      <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
          app:counterEnabled="true"
-         app:counterMaxLength="15"
+         app:counterMaxLength="9"
          android:focusable="true"
          android:focusableInTouchMode="true"
 
          >
 
-         <com.google.android.material.textfield.TextInputEditText
+         <EditText
+             android:id="@+id/usernameid"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-
              android:ems="10"
              android:hint="username"
              android:inputType="text"
              android:textSize="22sp" />
-        />
+
+
+         />
          </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password"
+            android:id="@+id/passwordID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
@@ -70,15 +83,16 @@
             android:focusableInTouchMode="true"
 
             >
-            <com.google.android.material.textfield.TextInputEditText
+
+            <EditText
+                android:id="@+id/passwordid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="password"
 
                 android:ems="10"
-                android:textSize="22sp"
+                android:hint="password"
                 android:inputType="textPassword"
-                />
+                android:textSize="22sp" />
             />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -92,14 +106,15 @@
             android:focusableInTouchMode="true"
 
             >
-            <com.google.android.material.textfield.TextInputEditText
+
+            <EditText
+                android:id="@+id/confirmpasswordid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="confirm password"
                 android:ems="10"
-                android:textSize="22sp"
+                android:hint="confirm password"
                 android:inputType="textPassword"
-                />
+                android:textSize="22sp" />
             />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,43 +128,49 @@
             app:counterMaxLength="10"
 
             >
-            <com.google.android.material.textfield.TextInputEditText
+
+            <EditText
+                android:id="@+id/emergencyphonenumberid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="emergency phone number"
                 android:ems="10"
-                android:textSize="22sp"
+                android:hint="emergency phone number"
                 android:inputType="text"
-                />
+                android:textSize="22sp" />
             />
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
     <Button
-        android:layout_marginTop="30dp"
         style="@android:style/Widget.DeviceDefault.Button.Inset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:background="#000"
         android:text="Register"
         android:textColor="#F85979"
+        android:onClick="btn_SendDetailsSignUp"
         android:textSize="22sp">
 
     </Button>
 
     <Button
-        android:layout_width="371dp"
-        android:layout_height="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="#FFF"
-        android:paddingLeft="@dimen/material_emphasis_medium"
         android:text="allready have an account? LogIn"
         android:textColor="#000"
-        android:textSize="13dp">
+        android:textSize="13sp"
+        android:onClick="btn_LogIn"
+       >
 
     </Button>
+    </LinearLayout>
+
+</ScrollView>
+
+
 
 </LinearLayout>
 

@@ -34,48 +34,45 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:counterEnabled="true"
-            app:counterMaxLength="15"
+            app:counterMaxLength="9"
             android:focusable="true"
             android:focusableInTouchMode="true"
 
             >
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:id="@+id/usernameid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:ems="10"
                 android:hint="username"
                 android:inputType="text"
                 android:textSize="22sp" />
             />
         </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:counterEnabled="true"
-            app:counterMaxLength="8"
-            app:passwordToggleEnabled="true"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="8"
+            app:passwordToggleEnabled="true">
 
-            >
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:id="@+id/passwordid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="password"
-
                 android:ems="10"
-                android:textSize="22sp"
+                android:hint="password"
                 android:inputType="textPassword"
-                />
+                android:textSize="22sp" />
             />
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
     <Button
         android:layout_marginTop="30dp"
         style="@android:style/Widget.DeviceDefault.Button.Inset"
@@ -84,21 +81,20 @@
         android:background="#000"
         android:text="Go"
         android:textColor="#F85979"
-        android:textSize="22sp">
+        android:textSize="22sp"
+        android:onClick="btn_SendDetails">
 
     </Button>
 
     <Button
-        android:layout_width="371dp"
-        android:layout_height="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="#FFF"
-        android:paddingLeft="@dimen/material_emphasis_medium"
         android:text="new user? SignUp"
         android:textColor="#000"
-
-        android:textSize="13dp">
-
+        android:textSize="13sp"
+        android:onClick="btn_SignUp">
     </Button>
 
 
