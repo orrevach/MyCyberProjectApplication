@@ -30,7 +30,7 @@ public class LogIn extends AppCompatActivity {
         SetUIViews();
     }
 private void SetUIViews(){
-        username= (EditText) findViewById(R.id.usernameid);
+        username= (EditText) findViewById(R.id.newphonenumberid);
         password= (EditText) findViewById(R.id.passwordid);
 
 }
@@ -54,6 +54,21 @@ private void SetUIViews(){
                     message = "lg"+FinalUserName.length() +FinalUserName+FinalPassword.length()+FinalPassword;
                     SendToPython(message);
                     Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+                    if(data.equals("username is not exist")){
+                        Toast.makeText(this, "username is not exist", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        if(data.equals("username or password are false"))
+                            Toast.makeText(this, "username or password are false", Toast.LENGTH_SHORT).show();
+                        else{
+                            Intent intent= new Intent(LogIn.this,HomePage.class);
+                            intent.putExtra("username",FinalUserName);
+                            startActivity(intent);
+                        }
+
+
+                    }
+
                 }
             }
 
@@ -62,10 +77,9 @@ private void SetUIViews(){
 
 
     }
+
     public void SendToPython(String message)
     {
-
-
         try {
             socket = new Socket("10.0.2.2", 7800);
             dos = new DataOutputStream(socket.getOutputStream());
@@ -75,6 +89,7 @@ private void SetUIViews(){
             byte[] buffer = new byte[len];
             dis.readFully(buffer);
             data = new String(buffer, StandardCharsets.UTF_8);
+            socket.close();
         }
         catch (IOException e) {
             e.printStackTrace();

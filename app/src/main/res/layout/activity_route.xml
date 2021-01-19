@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Route">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="-130dp"
+            app:srcCompat="@drawable/logocyber1" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            android:fontFamily="@font/bungee"
+            android:text="WHERE DO YOU WANT TO GO TODAY?"
+            android:textColor="#F85979"
+            android:textSize="30sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/boogaloo"
+            android:text="Enter your route"
+            android:textColor="#F85979"
+            android:textSize="30sp" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="-40dp"
+            android:layout_marginRight="200dp"
+            app:srcCompat="@drawable/route" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+
+           >
+
+            <EditText
+                android:id="@+id/start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+
+                android:hint="Type your current location"
+                android:inputType="text"
+                android:textSize="22sp" />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+
+           >
+
+            <EditText
+                android:id="@+id/end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+
+                android:hint="Type an address or location"
+                android:inputType="text"
+                android:textSize="22sp" />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/boogaloo"
+            android:text="walking time"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:textSize="20sp" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:focusable="true"
+            android:layout_marginRight="150dp"
+            android:focusableInTouchMode="true"
+
+            >
+
+            <EditText
+                android:id="@+id/hour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:hint="hours"
+                android:inputType="text"
+                android:textSize="22sp" />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-60dp"
+            android:focusable="true"
+
+            android:focusableInTouchMode="true"
+
+            >
+
+            <EditText
+                android:id="@+id/minutes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:hint="minutes"
+                android:inputType="text"
+                android:textSize="22sp" />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="111dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-60dp"
+            android:focusable="true"
+            android:layout_marginLeft="150dp"
+            android:focusableInTouchMode="true"
+
+            >
+
+            <EditText
+                android:id="@+id/seconds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:hint="seconds"
+                android:inputType="text"
+                android:textSize="22sp" />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/change_btn"
+            style="@android:style/Widget.DeviceDefault.Button.Inset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="#000"
+            android:onClick="btn_SendRouteDetails"
+
+            android:text="Start the route"
+            android:textColor="#F85979"
+            android:textSize="18sp">
+
+        </Button>
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:background="#FFF"
+            android:onClick="btn_MoveToHomePage"
+            android:text="BACK"
+            android:textColor="#000"
+            android:textSize="13sp"></Button>
+    </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

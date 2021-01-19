@@ -60,7 +60,7 @@
          >
 
          <EditText
-             android:id="@+id/usernameid"
+             android:id="@+id/newphonenumberid"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:ems="10"
@@ -135,6 +135,27 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="emergency phone number"
+                android:inputType="text"
+                android:textSize="22sp" />
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:counterEnabled="true"
+            app:counterMaxLength="99"
+
+            >
+
+            <EditText
+                android:id="@+id/emailid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="99"
+                android:hint="emergency  email"
                 android:inputType="text"
                 android:textSize="22sp" />
             />

@@ -16,8 +16,9 @@ import java.nio.charset.StandardCharsets;
 
 public class SignUp extends AppCompatActivity {
 
-    private EditText username, password, confirmpassword, emergencyphonenumber;
-    String FinalUserName, FinalPassword, FinalEmergencyPhoneNumber, FinalConfirmPassword,message, data;
+    private EditText username, password, confirmpassword, emergencyphonenumber,email;
+    String FinalUserName, FinalPassword, FinalEmergencyPhoneNumber, FinalConfirmPassword,message, data,FinalEmail,emaillength;
+
     Socket socket;
     DataOutputStream dos;
     DataInputStream dis;
@@ -29,10 +30,11 @@ public class SignUp extends AppCompatActivity {
         SetUIViews();
     }
     private void SetUIViews(){
-        username= (EditText) findViewById(R.id.usernameid);
+        username= (EditText) findViewById(R.id.newphonenumberid);
         password= (EditText) findViewById(R.id.passwordid);
         confirmpassword=(EditText) findViewById(R.id.confirmpasswordid);
         emergencyphonenumber= (EditText) findViewById(R.id.emergencyphonenumberid);
+        email= (EditText) findViewById(R.id.emailid);
 
     }
     public void btn_LogIn(View view) {
@@ -43,16 +45,16 @@ public class SignUp extends AppCompatActivity {
     public void btn_SendDetailsSignUp(View view) {
         FinalUserName= username.getText().toString();
         FinalPassword = password.getText().toString();
+        FinalEmail = email.getText().toString();
         FinalEmergencyPhoneNumber= emergencyphonenumber.getText().toString();
         FinalConfirmPassword = confirmpassword.getText().toString();
-        if((FinalPassword.isEmpty()||FinalUserName.isEmpty())||(FinalEmergencyPhoneNumber.isEmpty()||FinalConfirmPassword.isEmpty())) {
+        if(((FinalPassword.isEmpty()||FinalUserName.isEmpty())||(FinalEmergencyPhoneNumber.isEmpty()||FinalConfirmPassword.isEmpty())||FinalEmail.isEmpty())) {
             Toast.makeText(this, "please enter all the details", Toast.LENGTH_SHORT).show();
         }
 
         else{
             if(!FinalPassword.equals(FinalConfirmPassword)){
                 Toast.makeText(this, "password and confirm password are different, please change it", Toast.LENGTH_SHORT).show();
-
             }
             else {
                 if(FinalEmergencyPhoneNumber.length()!=10){
@@ -65,22 +67,44 @@ public class SignUp extends AppCompatActivity {
                         if(FinalPassword.length()>9)
                             Toast.makeText(this, "password is too long, please change it", Toast.LENGTH_SHORT).show();
                         else{
-                            message = "su"+FinalUserName.length() +FinalUserName+FinalPassword.length()+FinalPassword+FinalEmergencyPhoneNumber;
-                            SendToPython(message);
-                            Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
+                            if(FinalEmail.length()<10)
+                                emaillength="0"+ FinalEmail.length();
+                            else {
+                                if (FinalEmail.length() > 9 && FinalEmail.length() < 100)
+                                    emaillength = "" + FinalEmail.length();
+
+                                if (FinalEmail.length() > 99)
+                                    Toast.makeText(this, "email is too long, please change it", Toast.LENGTH_SHORT).show();
+                                else {
+                                    message = "su" + FinalUserName.length() + FinalUserName + FinalPassword.length() + FinalPassword + FinalEmergencyPhoneNumber + emaillength + FinalEmail;
+                                    SendToPython(message);
+                                    if (data.equals("user already exists, try again ")) {
+                                        Toast.makeText(this, "user already exists, try again", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        if(data.equals("the mail is wrong")){
+                                            Toast.makeText(this, data, Toast.LENGTH_SHORT).show();}
+                                        else{
+                                            Intent intent = new Intent(SignUp.this, HomePage.class);
+                                            intent.putExtra("username", FinalUserName);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+
+                                    }
+                                }
+                            }
+                            }
+
 
                         }
                     }
-
                 }
             }
         }
 
-    }
+
     public void SendToPython(String message)
     {
-
-
         try {
             socket = new Socket("10.0.2.2", 7800);
             dos = new DataOutputStream(socket.getOutputStream());
@@ -90,6 +114,7 @@ public class SignUp extends AppCompatActivity {
             byte[] buffer = new byte[len];
             dis.readFully(buffer);
             data = new String(buffer, StandardCharsets.UTF_8);
+            socket.close();
         }
         catch (IOException e) {
             e.printStackTrace();

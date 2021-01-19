@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomePage"
+
+
+   >
+   <ScrollView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:clipToPadding="false"
+       android:gravity="left"
+       android:orientation="vertical">
+
+
+      <ImageView
+          android:layout_width="150dp"
+          android:layout_height="150dp"
+          app:srcCompat="@drawable/logocyber1">
+
+      </ImageView>
+
+
+
+      <TextView
+          android:id="@+id/hellousername"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:fontFamily="@font/bungee"
+          android:textColor="#F85979"
+          android:textSize="40sp" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="-10dp"
+          android:fontFamily="@font/boogaloo"
+          android:text="What would you like to do?"
+          android:textColor="#F85979"
+          android:textSize="30sp" />
+
+      <ImageView
+          android:layout_width="180dp"
+          android:layout_height="180dp"
+          android:layout_gravity="left"
+          android:layout_marginTop="50dp"
+          android:clipToPadding="false"
+          app:srcCompat="@drawable/whitesquere">
+
+      </ImageView>
+      <ImageView
+          android:layout_width="180dp"
+          android:layout_height="120dp"
+          android:layout_gravity="left"
+          android:layout_marginTop="-150dp"
+          android:onClick="btn_MoveToRoute"
+          android:src="@drawable/route" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:layout_marginLeft="40dp"
+          android:fontFamily="@font/boogaloo"
+          android:text="enter a route"
+          android:textColor="#F85979"
+          android:textSize="20sp" />
+
+
+
+      <ImageView
+          android:layout_width="180dp"
+          android:layout_height="180dp"
+          android:layout_gravity="right"
+          android:layout_marginTop="-200dp"
+          android:clipToPadding="false"
+          app:srcCompat="@drawable/whitesquere"
+         >
+
+
+      </ImageView>
+      <ImageView
+          android:layout_width="170dp"
+          android:layout_height="110dp"
+          android:layout_gravity="right"
+          android:layout_marginRight="15dp"
+          android:layout_marginTop="-150dp"
+          android:src="@drawable/email"
+          android:onClick="btn_MoveToChangeEmail"
+          />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:layout_marginLeft="250dp"
+          android:fontFamily="@font/boogaloo"
+          android:text="change emergency \n email"
+          android:textColor="#F85979"
+          android:textSize="20sp" />
+
+      <ImageView
+          android:layout_width="180dp"
+          android:layout_height="180dp"
+          android:layout_gravity="left"
+          android:clipToPadding="false"
+          app:srcCompat="@drawable/whitesquere">
+
+      </ImageView>
+
+      <ImageView
+          android:layout_width="180dp"
+          android:layout_height="120dp"
+          android:layout_marginTop="-160dp"
+          android:onClick="btn_MoveToChangePhone"
+          android:src="@drawable/phone" />
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="30dp"
+          android:fontFamily="@font/boogaloo"
+          android:text="Change the emergency\n phone number"
+          android:textColor="#F85979"
+          android:layout_marginLeft="20dp"
+          android:textSize="20sp" />
+
+      <ImageView
+          android:layout_width="180dp"
+          android:layout_height="180dp"
+          android:layout_gravity="right"
+          android:layout_marginTop="-220dp"
+          android:clipToPadding="false"
+          app:srcCompat="@drawable/whitesquere">
+
+      </ImageView>
+
+      <ImageView
+          android:layout_width="180dp"
+          android:layout_height="120dp"
+          android:layout_gravity="right"
+          android:layout_marginTop="-150dp"
+          android:src="@drawable/instructions1" />
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="20dp"
+          android:layout_marginLeft="250dp"
+          android:fontFamily="@font/boogaloo"
+          android:text="Instructions for \n using the app"
+          android:textColor="#F85979"
+          android:textSize="20sp" />
+
+      <Button
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="left"
+          android:layout_marginTop="10dp"
+          android:background="#FFF"
+          android:onClick="LogOut"
+          android:text="LogOut"
+          android:textColor="#000"
+          android:textSize="13sp"></Button>
+
+
+   </LinearLayout>
+   </ScrollView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
