@@ -110,5 +110,6 @@ public class ChangeEmail extends AppCompatActivity {
         Intent intent= new Intent(ChangeEmail.this,HomePage.class);
         intent.putExtra("username",username);
         startActivity(intent);
+        finish();
     }
 }

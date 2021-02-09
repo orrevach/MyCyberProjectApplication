@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     synchronized (this) {
                         wait(3000);
-                        Intent intent = new Intent (MainActivity.this,LogIn.class);
+                        Intent intent = new Intent (MainActivity.this,Skip.class);
                         startActivity(intent);
                         finish();
                     }

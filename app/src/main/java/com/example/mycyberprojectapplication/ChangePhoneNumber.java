@@ -105,5 +105,6 @@ public class ChangePhoneNumber extends AppCompatActivity {
         Intent intent= new Intent(ChangePhoneNumber.this,HomePage.class);
         intent.putExtra("username",username);
         startActivity(intent);
+        finish();
     }
 }

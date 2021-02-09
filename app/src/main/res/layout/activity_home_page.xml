@@ -148,7 +148,8 @@
           android:layout_height="120dp"
           android:layout_gravity="right"
           android:layout_marginTop="-150dp"
-          android:src="@drawable/instructions1" />
+          android:src="@drawable/instructions1"
+          android:onClick="btn_MoveToInstructions"/>
 
       <TextView
           android:layout_width="wrap_content"

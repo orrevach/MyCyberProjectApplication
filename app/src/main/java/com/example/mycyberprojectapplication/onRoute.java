@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -24,14 +26,15 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 public class onRoute extends AppCompatActivity {
-    String username, currentlocation, endlocation, time,data,message,phonenumber,helpmessage, messagetopython;
+    String username, currentlocation, endlocation, time, data, message, phonenumber, helpmessage, messagetopython;
     private TextView route;
     Socket socket;
     DataOutputStream dos;
     DataInputStream dis;
-    private boolean timerrunning = false, ispressed=false;
+    private boolean timerrunning = false, ispressed = false;
     private long TimeLeftInMillySecond;
     private CountDownTimer countDownTimer;
+
 
 
     @Override
@@ -44,8 +47,8 @@ public class onRoute extends AppCompatActivity {
         currentlocation = getIntent().getStringExtra("currentLocation");
         endlocation = getIntent().getStringExtra("endLocation");
         time = getIntent().getStringExtra("time");
-        messagetopython=getIntent().getStringExtra("message");
-        message = "pn"+username.length()+username;
+        messagetopython = getIntent().getStringExtra("message");
+        message = "pn" + username.length() + username;
         SendToPython(message);
         phonenumber = data;
         SendToPython(messagetopython);
@@ -53,6 +56,8 @@ public class onRoute extends AppCompatActivity {
         TimeLeftInMillySecond = Long.parseLong(time);
         route = findViewById(R.id.onroute);
         route.setText("you are on a route from " + currentlocation + " to " + endlocation);
+
+
         startstop();
     }
 
@@ -84,7 +89,7 @@ public class onRoute extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                if(ispressed==false){
+                if (ispressed == false) {
                     isOKmessage();
                 }
 
@@ -96,7 +101,7 @@ public class onRoute extends AppCompatActivity {
 
     public void isOKmessage() {
 
-        final  AlertDialog.Builder builder = new AlertDialog.Builder(onRoute.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(onRoute.this);
         builder.setTitle("Have you reached to " + endlocation + " safetly?");
 
         builder.setItems(new CharSequence[]
@@ -107,16 +112,18 @@ public class onRoute extends AppCompatActivity {
                         switch (which) {
                             case 0:
                                 Toast.makeText(onRoute.this, "Glad to hear you arrived safely", Toast.LENGTH_SHORT).show();
+
                                 arrived();
-                                ispressed=true;
+                                ispressed = true;
                                 break;
                             case 1:
                                 Toast.makeText(onRoute.this, "add more time", Toast.LENGTH_SHORT).show();
-                                ispressed=true;
+                                ispressed = true;
+
                                 MoveToAddMoreTime();
                                 break;
                             case 2:
-                                ispressed=true;
+                                ispressed = true;
                                 SendHelpMessage();
                                 Toast.makeText(onRoute.this, "help!!", Toast.LENGTH_SHORT).show();
 
@@ -141,10 +148,9 @@ public class onRoute extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     Toast.makeText(onRoute.this, "AHAHHAHAHAHAHAHAH", Toast.LENGTH_SHORT).show();
-                    if(ispressed==false){
+                    if (ispressed == false) {
                         SendHelpMessage();
-                    }
-                    else{
+                    } else {
                         MoveToHomePage();
                     }
 
@@ -155,60 +161,70 @@ public class onRoute extends AppCompatActivity {
 
         }
     }
-    public void MoveToHomePage(){
-        Intent intent= new Intent(onRoute.this,HomePage.class);
-        intent.putExtra("username",username);
+
+    public void DeleteRoute() {
+        SendToPython("dr" + username.length() + username);
+    }
+
+    public void MoveToHomePage() {
+        Intent intent = new Intent(onRoute.this, HomePage.class);
+        intent.putExtra("username", username);
         startActivity(intent);
         finish();
     }
-public void arrived(){
-    final AlertDialog.Builder builder = new AlertDialog.Builder(onRoute.this);
-    builder.setTitle(Html.fromHtml("<font color='#E91E63'>" + "Glad to hear you arrived safely, we are waiting for you're next route \n :)" + "</font>"));
-    final AlertDialog dialog = builder.create();
-    dialog.show();
 
-    if (timerrunning) {
-        stoptimer();
-    } else {
-        TimeLeftInMillySecond = 90000;
-        countDownTimer = new CountDownTimer(TimeLeftInMillySecond, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                TimeLeftInMillySecond = millisUntilFinished;
+    public void arrived() {
+        DeleteRoute();
+        final AlertDialog.Builder builder = new AlertDialog.Builder(onRoute.this);
+        builder.setTitle(Html.fromHtml("<font color='#E91E63'>" + "Glad to hear you arrived safely, we are waiting for you're next route \n :)" + "</font>"));
+        final AlertDialog dialog = builder.create();
+        dialog.show();
 
-            }
+        if (timerrunning) {
+            stoptimer();
+        } else {
+            TimeLeftInMillySecond = 90000;
+            countDownTimer = new CountDownTimer(TimeLeftInMillySecond, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    TimeLeftInMillySecond = millisUntilFinished;
 
-            @Override
-            public void onFinish() {
-                dialog.dismiss();
+                }
 
-            }
+                @Override
+                public void onFinish() {
+                    dialog.dismiss();
 
-        }.start();
+                }
 
-        MoveToHomePage();
+            }.start();
+
+            MoveToHomePage();
+        }
+
     }
 
-}
     public void btn_arrived(View view) {
-        ispressed=true;
-         arrived();
+        ispressed = true;
+        arrived();
     }
-    public void SendHelpMessage()
-    {
-        int permissioncheck= ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
-        if(permissioncheck== PackageManager.PERMISSION_GRANTED){
+
+    public void SendHelpMessage() {
+        SendToPython("nh" + username.length() + username);
+        int permissioncheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
+        if (permissioncheck == PackageManager.PERMISSION_GRANTED) {
             MyMessage();
-        }
-        else{
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},0);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 0);
 
         }
     }
-    private void MyMessage(){
+
+    private void MyMessage() {
         helpmessage="username "+username+" did not arrive while she was budgeting for herself from  "+currentlocation+" to "+endlocation+", please check if she is okay.";
         SmsManager smsManager=SmsManager.getDefault();
         smsManager.sendTextMessage(phonenumber,null,helpmessage,null,null);
+
         Toast.makeText(this,"message sent", Toast.LENGTH_SHORT).show();
 
     }
@@ -242,6 +258,7 @@ public void arrived(){
         MoveToAddMoreTime();
     }
     public void MoveToAddMoreTime(){
+
         Intent intent= new Intent(onRoute.this,AddMoreTime.class);
         intent.putExtra("username",username);
         intent.putExtra("currentLocation",currentlocation);
@@ -251,6 +268,13 @@ public void arrived(){
         finish();
 
     }
+    public void btn_EmergencyNumbers(View view) {
+        Intent intent= new Intent(onRoute.this,Instructions.class);
+        intent.putExtra("username",username);
+        startActivity(intent);
+
+    }
+
 
 
 }

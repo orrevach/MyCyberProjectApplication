@@ -2,12 +2,14 @@ package com.example.mycyberprojectapplication;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,11 +29,13 @@ public class Route extends AppCompatActivity {
     DataOutputStream dos;
     DataInputStream dis;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
         username =getIntent().getStringExtra("username");
+
         SetUIViews();
 
     }
@@ -208,6 +212,7 @@ public class Route extends AppCompatActivity {
         Intent intent= new Intent(Route.this,HomePage.class);
         intent.putExtra("username",username);
         startActivity(intent);
+        finish();
 
 
     }

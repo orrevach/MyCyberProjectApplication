@@ -1,6 +1,7 @@
 package com.example.mycyberprojectapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -48,6 +49,14 @@ public class SignUp extends AppCompatActivity {
         FinalEmail = email.getText().toString();
         FinalEmergencyPhoneNumber= emergencyphonenumber.getText().toString();
         FinalConfirmPassword = confirmpassword.getText().toString();
+        SharedPreferences sharedPreferences =getSharedPreferences(LogIn.PREFS_NAME,0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("haslogin",true);
+        editor.putString("name",FinalUserName);
+        editor.commit();
+        Intent intent = new Intent(SignUp.this,HomePage.class);
+        intent.putExtra("keyname", FinalUserName);
+        intent.putExtra("boolean", "true");
         if(((FinalPassword.isEmpty()||FinalUserName.isEmpty())||(FinalEmergencyPhoneNumber.isEmpty()||FinalConfirmPassword.isEmpty())||FinalEmail.isEmpty())) {
             Toast.makeText(this, "please enter all the details", Toast.LENGTH_SHORT).show();
         }
@@ -84,9 +93,9 @@ public class SignUp extends AppCompatActivity {
                                         if(data.equals("the mail is wrong")){
                                             Toast.makeText(this, data, Toast.LENGTH_SHORT).show();}
                                         else{
-                                            Intent intent = new Intent(SignUp.this, HomePage.class);
-                                            intent.putExtra("username", FinalUserName);
-                                            startActivity(intent);
+                                            Intent intent1 = new Intent(SignUp.this, HomePage.class);
+                                            intent1.putExtra("username", FinalUserName);
+                                            startActivity(intent1);
                                             finish();
                                         }
 
