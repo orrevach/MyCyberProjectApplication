@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.telephony.SmsManager;
@@ -30,6 +31,7 @@ public class onRoute extends AppCompatActivity {
     private TextView route;
     Socket socket;
     DataOutputStream dos;
+    private TextView phone;
     DataInputStream dis;
     private boolean timerrunning = false, ispressed = false;
     private long TimeLeftInMillySecond;
@@ -57,7 +59,8 @@ public class onRoute extends AppCompatActivity {
         route = findViewById(R.id.onroute);
         route.setText("you are on a route from " + currentlocation + " to " + endlocation);
 
-
+        phone=findViewById(R.id.myphone);
+        phone.setText(phonenumber+": your emergency phone number");
         startstop();
     }
 
@@ -133,7 +136,7 @@ public class onRoute extends AppCompatActivity {
                     }
                 });
         final AlertDialog dialog = builder.create();
-        builder.create().show();
+        dialog.show();
         if (timerrunning) {
             stoptimer();
         } else {
@@ -148,8 +151,10 @@ public class onRoute extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     Toast.makeText(onRoute.this, "AHAHHAHAHAHAHAHAH", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                     if (ispressed == false) {
                         SendHelpMessage();
+                        MoveToHomePage();
                     } else {
                         MoveToHomePage();
                     }
@@ -183,7 +188,7 @@ public class onRoute extends AppCompatActivity {
         if (timerrunning) {
             stoptimer();
         } else {
-            TimeLeftInMillySecond = 90000;
+            TimeLeftInMillySecond = 5000;
             countDownTimer = new CountDownTimer(TimeLeftInMillySecond, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -194,12 +199,12 @@ public class onRoute extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     dialog.dismiss();
-
+                    MoveToHomePage();
                 }
 
             }.start();
 
-            MoveToHomePage();
+
         }
 
     }
@@ -252,6 +257,7 @@ public class onRoute extends AppCompatActivity {
     public void btn_helpbutton(View view) {
         ispressed=true;
         SendHelpMessage();
+        MoveToHomePage();
     }
     public void btn_addmoretime(View view) {
         ispressed=true;
@@ -268,12 +274,41 @@ public class onRoute extends AppCompatActivity {
         finish();
 
     }
-    public void btn_EmergencyNumbers(View view) {
-        Intent intent= new Intent(onRoute.this,Instructions.class);
-        intent.putExtra("username",username);
+    public void btn_Call1202(View view){
+        Call("1202");
+
+    }
+    public void btn_Callmyphone(View view){
+        Call(phonenumber);
+
+    }
+    public void btn_Call1203(View view){
+        Call("1203");
+
+    }
+    public void btn_Call04_6566813(View view){
+        Call("046566813");
+    }
+    public void btn_Call02_6730002(View view){
+        Call("026730002");
+    }
+    public void btn_Call02_5328000(View view){
+        Call("025328000");
+    }
+    public void btn_Call100(View view){
+        Call("100");
+    }
+    public void Call(String phone)
+    {
+
+        String s="tel:"+phone;
+        Intent intent=new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(s));
+        Toast.makeText(this, "here", Toast.LENGTH_SHORT).show();
         startActivity(intent);
 
     }
+
 
 
 

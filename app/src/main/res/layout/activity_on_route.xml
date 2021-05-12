@@ -14,7 +14,12 @@
         android:clipToPadding="false"
         android:gravity="left"
         android:orientation="vertical">
-
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="left"
+            app:srcCompat="@drawable/logocyber1" />
         <TextView
             android:id="@+id/onroute"
             android:layout_marginLeft="50dp"
@@ -55,23 +60,153 @@
             android:text="arrived"
             android:textColor="#000"
             android:textSize="13sp"></Button>
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="#FFF"
-            android:onClick="btn_EmergencyNumbers"
-            android:text="Emergency Numbers"
-            android:textColor="#000"
-            android:textSize="13sp"></Button>
 
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/logocyber1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/bungee"
+                android:textColor="#000"
+                android:text="cEmergency phone numbers:"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/myphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/boogaloo"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#000"
+                android:text="CALL"
+                android:layout_gravity="left"
+                android:textColor="#FFF"
+                android:textSize="13sp"
+                android:onClick="btn_Callmyphone">
+            </Button>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/boogaloo"
+                android:text="100: Police"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#000"
+                android:text="CALL"
+                android:layout_gravity="left"
+                android:textColor="#FFF"
+                android:textSize="13sp"
+                android:onClick="btn_Call100">
+            </Button>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/boogaloo"
+                android:text="1202: Sexual Assault Victims Assistance Line"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#000"
+                android:text="CALL"
+                android:layout_gravity="left"
+                android:textColor="#FFF"
+                android:textSize="13sp"
+                android:onClick="btn_Call1202">
+            </Button>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/boogaloo"
+                android:text="1203: Sexual Assault Victims Assistance Line"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#000"
+                android:text="CALL"
+                android:layout_gravity="left"
+                android:textColor="#FFF"
+                android:textSize="13sp"
+                android:onClick="btn_Call1203">
+            </Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/boogaloo"
+                android:text=" 04-6566813: Assistance line for victims of violence and sexual assault in Arab society"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#000"
+                android:text="CALL"
+                android:layout_gravity="left"
+                android:textColor="#FFF"
+                android:textSize="13sp"
+                android:onClick="btn_Call04_6566813">
+            </Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/boogaloo"
+                android:text=" 02-6730002: Helpline for religious women and girls victims of sexual assault"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#000"
+                android:text="CALL"
+                android:layout_gravity="left"
+                android:textColor="#FFF"
+                android:textSize="13sp"
+                android:onClick="btn_Call02_6730002"
+                >
+            </Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="@font/boogaloo"
+                android:text=" 02-5328000: Assistance line for men and religious boys victims of sexual assault"
+                android:textColor="#000000"
+                android:textSize="20sp" />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#000"
+                android:text="CALL"
+                android:layout_gravity="left"
+                android:textColor="#FFF"
+                android:textSize="13sp"
+                android:onClick="btn_Call02_5328000">
+            </Button>
+
+
+
     </LinearLayout>
     </ScrollView>
 </LinearLayout>

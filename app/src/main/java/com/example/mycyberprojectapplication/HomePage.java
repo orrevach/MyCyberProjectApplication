@@ -10,9 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class HomePage extends AppCompatActivity  {
-    String username;
     private TextView name;
-
+    String username;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,5 +63,6 @@ public class HomePage extends AppCompatActivity  {
         intent.putExtra("username",username);
         startActivity(intent);
     }
+
 
 }

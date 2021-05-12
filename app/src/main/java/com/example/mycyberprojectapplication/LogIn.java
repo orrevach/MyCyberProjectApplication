@@ -44,14 +44,7 @@ private void SetUIViews(){
         FinalUserName= username.getText().toString();
         FinalPassword = password.getText().toString();
 
-        SharedPreferences sharedPreferences =getSharedPreferences(LogIn.PREFS_NAME,0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("haslogin",true);
-        editor.putString("name",FinalUserName);
-        editor.commit();
-        Intent intent = new Intent(LogIn.this,HomePage.class);
-        intent.putExtra("keyname", FinalUserName);
-        intent.putExtra("boolean", "true");
+
 
 
         if(FinalPassword.isEmpty()||FinalUserName.isEmpty()) {
@@ -64,6 +57,7 @@ private void SetUIViews(){
                 if(FinalPassword.length()>9)
                     Toast.makeText(this, "password is too long", Toast.LENGTH_SHORT).show();
                 else{
+
                     message = "lg"+FinalUserName.length() +FinalUserName+FinalPassword.length()+FinalPassword;
                     SendToPython(message);
                     Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
@@ -74,9 +68,17 @@ private void SetUIViews(){
                         if(data.equals("username or password are false"))
                             Toast.makeText(this, "username or password are false", Toast.LENGTH_SHORT).show();
                         else{
-                            Intent intent1= new Intent(LogIn.this,HomePage.class);
-                            intent1.putExtra("username",FinalUserName);
-                            startActivity(intent1);
+                            SharedPreferences sharedPreferences =getSharedPreferences(LogIn.PREFS_NAME,0);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putBoolean("haslogin",true);
+                            editor.putString("name",FinalUserName);
+                            editor.commit();
+                            Intent intent = new Intent(LogIn.this,HomePage.class);
+                            intent.putExtra("keyname", FinalUserName);
+                            intent.putExtra("boolean", "true");
+
+                            intent.putExtra("username",FinalUserName);
+                            startActivity(intent);
                         }
 
 

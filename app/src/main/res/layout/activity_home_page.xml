@@ -29,7 +29,6 @@
       </ImageView>
 
 
-
       <TextView
           android:id="@+id/hellousername"
           android:layout_width="wrap_content"

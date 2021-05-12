@@ -41,6 +41,7 @@ public class AddMoreTime extends AppCompatActivity {
     }
 
     public void btn_SendRouteDetails(View view) {
+        correctdetails = true;
         Finalminutes = minutes.getText().toString();
 
         Finalhour = hour.getText().toString();
@@ -52,7 +53,7 @@ public class AddMoreTime extends AppCompatActivity {
             if (Finalhour.isEmpty()) {
                 Finalhour = "0";
             } else {
-                if (Finalhour.length() > 99) {
+                if (Finalhour.length() > 2) {
                     Toast.makeText(this, "hours are too long", Toast.LENGTH_SHORT).show();
                     correctdetails = false;
                 }
@@ -62,7 +63,7 @@ public class AddMoreTime extends AppCompatActivity {
             if (Finalminutes.isEmpty()) {
                 Finalminutes = "0";
             } else {
-                if (Finalminutes.length() > 99) {
+                if (Finalminutes.length() > 2) {
                     Toast.makeText(this, "minutes are too long", Toast.LENGTH_SHORT).show();
                     correctdetails = false;
 
@@ -72,7 +73,7 @@ public class AddMoreTime extends AppCompatActivity {
             if (Finalseconds.isEmpty()) {
                 Finalseconds = "0";
             } else {
-                if (Finalseconds.length() > 99) {
+                if (Finalseconds.length() > 2) {
                     Toast.makeText(this, "seconds are too long", Toast.LENGTH_SHORT).show();
                     correctdetails = false;
 
