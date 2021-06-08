@@ -44,9 +44,9 @@ public class HomePage extends AppCompatActivity  {
     public void LogOut(View view) {
         SharedPreferences sharedPreferences =getSharedPreferences(LogIn.PREFS_NAME,0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("haslogin",false);
-        editor.putString("name","");
-        editor.commit();
+        editor.putBoolean("haslogin",false);//שינוי הערך לfalse
+        editor.putString("name","");//מחיקת הערך בשם המשתמש
+        editor.commit();//ביצוע
         username ="";
         startActivity(new Intent(getApplicationContext(),LogIn.class));
         finish();

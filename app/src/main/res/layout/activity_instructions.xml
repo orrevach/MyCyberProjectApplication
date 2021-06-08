@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
 
             android:fontFamily="@font/boogaloo"
-            android:text=" In the app, the user writes where she is, where she wants to go and how long it takes for the user to reach her destination.\n If the time specified in advance has passed and the user has not confirmed that it arrived safely, the application sends a message with the user's route to a phone number that the user has set in advance.\n In addition to the message, it will send an email with the user's route to an email that the user has defined in advance, in order to ensure that even in the event of an attack in which the phone may crash, it will still send a message to an outsider.\n That way the same person will be able to check if everything is fine with the user and act accordingly."
+            android:text=" In the app, the user writes where she is, where she wants to go and how long it takes for the user to reach her destination.\n If the time specified in advance has passed and the user has not confirmed that it arrived safely, the application sends a message with the user's route to a phone number that the user has set in advance.\n In addition to the message, it will send an email with the user's route to an email that the user has defined in advance, in order to ensure that even in the event of an attack in which the phone may crash, it will still send a message to an outsider.\n That way the same person will be able to check if everything is fine with the user and act accordingly.\n\n You must confirm all the permissions in the settings!"
             android:textColor="#000000"
             android:textSize="20sp" />
 

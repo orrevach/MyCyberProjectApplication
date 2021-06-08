@@ -18,8 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -65,6 +63,7 @@ public class onRoute extends AppCompatActivity {
     }
 
     public void startstop() {
+        //בודק האם הטיימר רץ
         if (timerrunning) {
             stoptimer();
         } else {
@@ -76,17 +75,18 @@ public class onRoute extends AppCompatActivity {
     }
 
     public void stoptimer() {
-        countDownTimer.cancel();
+        countDownTimer.cancel();//מכבה את הטיימר
         timerrunning = false;
 
     }
 
     public void starttimer() {
+        //פעולת ספירה לאחור
 
         countDownTimer = new CountDownTimer(TimeLeftInMillySecond, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                TimeLeftInMillySecond = millisUntilFinished;
+                TimeLeftInMillySecond = millisUntilFinished;//מעדכן את מספר המילי שניות עד לסוף הטיימר
 
             }
 
@@ -103,11 +103,12 @@ public class onRoute extends AppCompatActivity {
     }
 
     public void isOKmessage() {
+        //הקפצת הודעה לבדיקת מצב המשתמש
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(onRoute.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(onRoute.this);//בניית הדיאלוג
         builder.setTitle("Have you reached to " + endlocation + " safetly?");
-
-        builder.setItems(new CharSequence[]
+        builder.setCancelable(false);//לחיצה על המסך מחוץ לדיאלוג אינה סוגרת אותו
+        builder.setItems(new CharSequence[]//בניית שלושת הכפתורים
                         {"I'm safe", "add more time", Html.fromHtml("<font color='#E91E63'>" + "help!!" + "</font>")},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -127,6 +128,7 @@ public class onRoute extends AppCompatActivity {
                                 break;
                             case 2:
                                 ispressed = true;
+                                SendToPython("nh" + username.length() + username);
                                 SendHelpMessage();
                                 Toast.makeText(onRoute.this, "help!!", Toast.LENGTH_SHORT).show();
 
@@ -135,8 +137,10 @@ public class onRoute extends AppCompatActivity {
                         }
                     }
                 });
-        final AlertDialog dialog = builder.create();
-        dialog.show();
+        final AlertDialog dialog = builder.create();//יצירת הדיאלוג
+        dialog.show();//הצגת הדיאלוג
+
+        //טיימר לדיאלוג
         if (timerrunning) {
             stoptimer();
         } else {
@@ -149,12 +153,12 @@ public class onRoute extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFinish() {
+                public void onFinish() {//בסיום הטיימר
                     Toast.makeText(onRoute.this, "AHAHHAHAHAHAHAHAH", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                    if (ispressed == false) {
-                        SendHelpMessage();
-                        MoveToHomePage();
+                    dialog.dismiss();//סגירת הדיאלוג
+                    if (ispressed == false) {//אם לא בוצעו שינויים (כמו שינוי הזמן או הגעה)
+                        SendHelpMessage();//שליחת הודעה לקריאת עזרה
+                        MoveToHomePage();//מעבר לעמוד הבית
                     } else {
                         MoveToHomePage();
                     }
@@ -162,29 +166,34 @@ public class onRoute extends AppCompatActivity {
 
                 }
 
-            }.start();
+            }.start();//התחלת הטיימר
 
         }
     }
 
     public void DeleteRoute() {
+        //פעולה למחיקת מסלול במקרה של הגעה\ שינוי זמן
         SendToPython("dr" + username.length() + username);
     }
 
     public void MoveToHomePage() {
+        //פעולה למעבר לעמוד הבית
+
         Intent intent = new Intent(onRoute.this, HomePage.class);
-        intent.putExtra("username", username);
+        intent.putExtra("username", username);//השמת פרמטרים שיועברו גם הם לעמוד הבית
+        stoptimer();
         startActivity(intent);
-        finish();
+        finish();//סגירת האקטיביטי
     }
 
     public void arrived() {
-        DeleteRoute();
-        final AlertDialog.Builder builder = new AlertDialog.Builder(onRoute.this);
+        DeleteRoute();//מחיקת המסלול
+        final AlertDialog.Builder builder = new AlertDialog.Builder(onRoute.this);//בניית דיאלוג
         builder.setTitle(Html.fromHtml("<font color='#E91E63'>" + "Glad to hear you arrived safely, we are waiting for you're next route \n :)" + "</font>"));
-        final AlertDialog dialog = builder.create();
-        dialog.show();
+        final AlertDialog dialog = builder.create();//יצירת הדיאלוג
+        dialog.show();//הצגת הדיאלוג
 
+        //פתיחת טיימר לזמן הדיאלוג
         if (timerrunning) {
             stoptimer();
         } else {
@@ -202,7 +211,7 @@ public class onRoute extends AppCompatActivity {
                     MoveToHomePage();
                 }
 
-            }.start();
+            }.start();//התחלת הטיימר
 
 
         }
@@ -210,12 +219,13 @@ public class onRoute extends AppCompatActivity {
     }
 
     public void btn_arrived(View view) {
+        //פעולה למקרה של לחיצה על כפתור ההגעה
         ispressed = true;
         arrived();
     }
 
     public void SendHelpMessage() {
-        SendToPython("nh" + username.length() + username);
+//בדיקת הרשאה לשליחת SMS
         int permissioncheck = ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS);
         if (permissioncheck == PackageManager.PERMISSION_GRANTED) {
             MyMessage();
@@ -226,50 +236,40 @@ public class onRoute extends AppCompatActivity {
     }
 
     private void MyMessage() {
+        //שליחת הודעת SMS
+
         helpmessage="username "+username+" did not arrive while she was budgeting for herself from  "+currentlocation+" to "+endlocation+", please check if she is okay.";
-        SmsManager smsManager=SmsManager.getDefault();
+        SmsManager smsManager=SmsManager.getDefault();//קבלת ניהול הודעות הtext של המכשיר
         smsManager.sendTextMessage(phonenumber,null,helpmessage,null,null);
 
         Toast.makeText(this,"message sent", Toast.LENGTH_SHORT).show();
 
     }
 
-    public void SendToPython(String message)
-    {
-        try {
-            socket = new Socket("10.0.2.2", 7800);
-            dos = new DataOutputStream(socket.getOutputStream());
-            dos.writeBytes((message));
-            dis = new DataInputStream(socket.getInputStream());
-            int len = dis.readInt();
-            byte[] buffer = new byte[len];
-            dis.readFully(buffer);
-            data = new String(buffer, StandardCharsets.UTF_8);
-            socket.close();
 
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-
-        }
-    }
 
     public void btn_helpbutton(View view) {
+        //פעולה לטיפול במקרה של לחיצה על כפתור העזרה
         ispressed=true;
+        SendToPython("nh" + username.length() + username);
         SendHelpMessage();
         MoveToHomePage();
     }
     public void btn_addmoretime(View view) {
+        //פעולה לטיפול במקרה של לחיצה על הוספת זמן
         ispressed=true;
+
         MoveToAddMoreTime();
     }
     public void MoveToAddMoreTime(){
+
 
         Intent intent= new Intent(onRoute.this,AddMoreTime.class);
         intent.putExtra("username",username);
         intent.putExtra("currentLocation",currentlocation);
         intent.putExtra("endLocation",endlocation);
-
+        stoptimer();
+        DeleteRoute();
         startActivity(intent);
         finish();
 
@@ -298,18 +298,50 @@ public class onRoute extends AppCompatActivity {
     public void btn_Call100(View view){
         Call("100");
     }
+
     public void Call(String phone)
     {
+        //בדיקת הרשאות
+        int permissioncheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+        if (permissioncheck == PackageManager.PERMISSION_GRANTED) {
 
-        String s="tel:"+phone;
-        Intent intent=new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse(s));
-        Toast.makeText(this, "here", Toast.LENGTH_SHORT).show();
-        startActivity(intent);
+            String s="tel:"+phone;
+            Intent intent=new Intent(Intent.ACTION_CALL);//פתיחת intent למעבר לאפליקציית הטלפון
+            intent.setData(Uri.parse(s));//העברת פרטי המידע (המספר אליו נתקשר)
+            startActivity(intent);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 0);
+
+        }
+
+
 
     }
 
 
-
+    public void SendToPython(String message)
+    {
+        //פעולה לשליחת מידע לשרת פייתון
+        String ipY="172.20.10.5";
+        String ipO="10.0.2.2";
+        int PORT= 7800;
+        try {
+            //פתיחת סוקט
+            socket = new Socket(ipY, PORT);
+            //שליחת המידע
+            dos = new DataOutputStream(socket.getOutputStream());//משתנה בעזרתו נעביר את המידע לסוקט
+            dos.writeBytes((message));//העברת המידע לבתים ושליחתו לשרת
+            //קבלת המידע
+            dis = new DataInputStream(socket.getInputStream());//משתנה בעזרתו נקבל מידע מהסוקט
+            int len = dis.readInt();//משתנה לאורך המידע המוחזר
+            byte[] buffer = new byte[len];//מערך של בתים באורך המשתנה
+            dis.readFully(buffer);//מוודאת שקיבלתי את כל הבתים ושומר אותם במערך
+            data = new String(buffer, StandardCharsets.UTF_8);//המרת המידע מbytes לstring ושמירתו במשתנה data
+            socket.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

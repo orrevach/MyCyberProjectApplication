@@ -41,15 +41,17 @@ public class AddMoreTime extends AppCompatActivity {
     }
 
     public void btn_SendRouteDetails(View view) {
+        //פעולה לבדיקת תקינות השדות ועדכונם
         correctdetails = true;
         Finalminutes = minutes.getText().toString();
 
         Finalhour = hour.getText().toString();
         Finalseconds = seconds.getText().toString();
 
-        if (Finalhour.isEmpty() && Finalminutes.isEmpty() && Finalseconds.isEmpty()) {
+        if (Finalhour.isEmpty() && Finalminutes.isEmpty() && Finalseconds.isEmpty()) {//בודק אם השדות ריקים
             Toast.makeText(this, "please enter time", Toast.LENGTH_SHORT).show();
         } else {
+            //בדיקת תקינות לשדות הזמן
             if (Finalhour.isEmpty()) {
                 Finalhour = "0";
             } else {
@@ -59,7 +61,6 @@ public class AddMoreTime extends AppCompatActivity {
                 }
 
             }
-
             if (Finalminutes.isEmpty()) {
                 Finalminutes = "0";
             } else {
@@ -82,6 +83,7 @@ public class AddMoreTime extends AppCompatActivity {
 
 
             if (correctdetails) {
+                //בניית את ההודעה שתשלח לפייתון
                 TimeLeftInMillySecond = Integer.parseInt(Finalhour) * 3600 + Integer.parseInt(Finalminutes) * 60 + Integer.parseInt(Finalseconds);
                 TimeLeftInMillySecond = TimeLeftInMillySecond * 1000;
                 message = "sr";
@@ -113,7 +115,7 @@ public class AddMoreTime extends AppCompatActivity {
                     message += endLocation.length();
                 }
                 message += endLocation;
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                //שליחת הפרטים ומעבר לעמוד onRoute
                 Intent intent = new Intent(this, onRoute.class);
                 intent.putExtra("username", username);
                 intent.putExtra("currentLocation", currentLocation);
@@ -134,21 +136,28 @@ public class AddMoreTime extends AppCompatActivity {
     }
 
 
-    public void SendToPython(String message) {
+    public void SendToPython(String message)
+    {
+        //פעולה לשליחת מידע לשרת פייתון
+        String ipY="172.20.10.5";
+        String ipO="10.0.2.2";
+        int PORT= 7800;
         try {
-            socket = new Socket("10.0.2.2", 7800);
-            dos = new DataOutputStream(socket.getOutputStream());
-            dos.writeBytes((message));
-            dis = new DataInputStream(socket.getInputStream());
-            int len = dis.readInt();
-            byte[] buffer = new byte[len];
-            dis.readFully(buffer);
-            data = new String(buffer, StandardCharsets.UTF_8);
+            //פתיחת סוקט
+            socket = new Socket(ipY, PORT);
+            //שליחת המידע
+            dos = new DataOutputStream(socket.getOutputStream());//משתנה בעזרתו נעביר את המידע לסוקט
+            dos.writeBytes((message));//העברת המידע לבתים ושליחתו לשרת
+            //קבלת המידע
+            dis = new DataInputStream(socket.getInputStream());//משתנה בעזרתו נקבל מידע מהסוקט
+            int len = dis.readInt();//משתנה לאורך המידע המוחזר
+            byte[] buffer = new byte[len];//מערך של בתים באורך המשתנה
+            dis.readFully(buffer);//מוודאת שקיבלתי את כל הבתים ושומר אותם במערך
+            data = new String(buffer, StandardCharsets.UTF_8);//המרת המידע מbytes לstring ושמירתו במשתנה data
             socket.close();
-
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
-
         }
     }
 }

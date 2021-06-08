@@ -1,6 +1,5 @@
 package com.example.mycyberprojectapplication;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.DataInputStream;
@@ -54,7 +52,9 @@ public class Route extends AppCompatActivity {
         FinalendLocation = endLocation.getText().toString();
         Finalhour = hour.getText().toString();
         Finalseconds = seconds.getText().toString();
-       if(FinalendLocation.isEmpty()||FinalcurrentLocation.isEmpty()){
+
+        //פעולה לבדיקת תקינות השדות ועדכונם
+        if(FinalendLocation.isEmpty()||FinalcurrentLocation.isEmpty()){
            Toast.makeText(this, "please enter all the locations", Toast.LENGTH_SHORT).show();
        }
        else {
@@ -108,6 +108,8 @@ public class Route extends AppCompatActivity {
                        TimeLeftInMillySecond = Integer.parseInt(Finalhour)*3600+Integer.parseInt(Finalminutes)*60+Integer.parseInt(Finalseconds);
                        TimeLeftInMillySecond=TimeLeftInMillySecond*1000;
                        message = "sr";
+
+                       //בניית את ההודעה שתשלח לפייתון
                        if(Finalhour.length()>9)
                            message+= Finalhour.length()+Finalhour;
                        else{
@@ -140,7 +142,7 @@ public class Route extends AppCompatActivity {
                        }
                        message+=FinalendLocation;
 
-                       Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+                       //שליחת הפרטים ומעבר לעמוד onRoute
                        Intent intent= new Intent(Route.this,onRoute.class);
                        intent.putExtra("username",username);
                        intent.putExtra("currentLocation",FinalcurrentLocation);
@@ -163,81 +165,25 @@ public class Route extends AppCompatActivity {
 
            }
 
-    public void startstop(){
-        if(timerrunning){
-            stoptimer();
-        }
-        else{
-            starttimer();
 
-        }
-
-    }
-    public void stoptimer(){
-        countDownTimer.cancel();
-        timerrunning=false;
-
-    }
-    public void starttimer(){
-        countDownTimer = new CountDownTimer(TimeLeftInMillySecond,1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                TimeLeftInMillySecond=millisUntilFinished;
-
-            }
-
-            @Override
-            public void onFinish() {
-                isOKmessage();
-
-            }
-
-        }.start();
-    }
-
-    public void isOKmessage(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(Route.this);
-        builder.setCancelable(false);
-        builder.setTitle("Have you reached to "+FinalendLocation+" safetly?");
-        builder.setPositiveButton("I'm safe", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(Route.this, "Glad to hear you arrived safely", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-        builder.setNegativeButton("add more time", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
-    }
-
-
-    public void btn_MoveToHomePage(View view) {
-        Intent intent= new Intent(Route.this,HomePage.class);
-        intent.putExtra("username",username);
-        startActivity(intent);
-        finish();
-
-
-    }
     public void SendToPython(String message)
     {
+        //פעולה לשליחת מידע לשרת פייתון
+        String ipY="172.20.10.5";
+        String ipO="10.0.2.2";
+        int PORT= 7800;
         try {
-            socket = new Socket("10.0.2.2", 7800);
-            dos = new DataOutputStream(socket.getOutputStream());
-            dos.writeBytes((message));
-            dis = new DataInputStream(socket.getInputStream());
-            int len = dis.readInt();
-            byte[] buffer = new byte[len];
-            dis.readFully(buffer);
-            data = new String(buffer, StandardCharsets.UTF_8);
-            Toast.makeText(this, data, Toast.LENGTH_SHORT).show();
-
+            //פתיחת סוקט
+            socket = new Socket(ipY, PORT);
+            //שליחת המידע
+            dos = new DataOutputStream(socket.getOutputStream());//משתנה בעזרתו נעביר את המידע לסוקט
+            dos.writeBytes((message));//העברת המידע לבתים ושליחתו לשרת
+            //קבלת המידע
+            dis = new DataInputStream(socket.getInputStream());//משתנה בעזרתו נקבל מידע מהסוקט
+            int len = dis.readInt();//משתנה לאורך המידע המוחזר
+            byte[] buffer = new byte[len];//מערך של בתים באורך המשתנה
+            dis.readFully(buffer);//מוודאת שקיבלתי את כל הבתים ושומר אותם במערך
+            data = new String(buffer, StandardCharsets.UTF_8);//המרת המידע מbytes לstring ושמירתו במשתנה data
             socket.close();
         }
         catch (IOException e) {

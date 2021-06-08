@@ -17,10 +17,11 @@ public class Instructions extends AppCompatActivity {
 
     }
     public void btn_MoveToHomePage(View view) {
+        //פעולה למעבר לעמוד הבית
         Intent intent= new Intent(Instructions.this,HomePage.class);
-        intent.putExtra("username",username);
+        intent.putExtra("username",username);//השמת פרמטרים שיועברו גם הם לעמוד הבית
         startActivity(intent);
-        finish();
+        finish();//סגירת האקטיביטי
     }
 
 }

@@ -12,14 +12,16 @@ public class Skip extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skip);
+        //sharedpreference- אחסון כמויות קטנות של מידע במכשיר
         SharedPreferences sharedPreferences = getSharedPreferences(LogIn.PREFS_NAME, 0);
+        //SharedPreferences.Editor- SharedPreferences ממשק לשינוי ערכים ב
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.commit();
-        HasLoggedIn= sharedPreferences.getBoolean("haslogin", false);
+        editor.commit();//הפעלה
+        HasLoggedIn= sharedPreferences.getBoolean(/*מפתח*/"haslogin", /*ברירת מחדל*/false);//מכניס למשתנה האם המשתמש התחבר בעבר
         if(HasLoggedIn){
-            Intent intent = new Intent(Skip.this, HomePage.class);
-            intent.putExtra("username", sharedPreferences.getString("name", ""));
 
+            Intent intent = new Intent(Skip.this, HomePage.class);
+            intent.putExtra("username", sharedPreferences.getString("name", ""));//הוספת פרמטק שם משתמש
             startActivity(intent);
             finish();
         }
